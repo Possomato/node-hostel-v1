@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelNet - Rede de Hostels</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .search-box {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            width: 300px;
+            outline: none;
+        }
+
+        /* Navigation */
+        .nav {
+            background: #34495e;
+            padding: 1rem 0;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            padding: 0 2rem;
+        }
+
+        .nav-item {
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .nav-item:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active {
+            background: #3498db;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%2327ae60" width="1200" height="400"/><circle fill="%2352c471" cx="200" cy="100" r="50"/><circle fill="%2352c471" cx="800" cy="300" r="80"/><circle fill="%232ecc71" cx="1000" cy="150" r="60"/><rect fill="%2334495e" x="100" y="200" width="200" height="100" rx="10"/><rect fill="%2334495e" x="400" y="150" width="150" height="120" rx="10"/><rect fill="%2334495e" x="700" y="180" width="180" height="80" rx="10"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+        }
+
+        /* Hostels Grid */
+        .hostels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .hostel-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hostel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hostel-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hostel-image.hostel1 {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+        }
+
+        .hostel-image.hostel2 {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+        }
+
+        .hostel-image.hostel3 {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .hostel-image.hostel4 {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+        }
+
+        .hostel-image.hostel5 {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+        }
+
+        .hostel-info {
+            padding: 1.5rem;
+        }
+
+        .hostel-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .hostel-location {
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+        }
+
+        .hostel-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .hostel-features {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .feature-tag {
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .search-box {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-item {
+                margin: 0.25rem 0;
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .hostels-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .main-content {
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .nav-content {
+                padding: 0 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hostel-info {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">HostelNet</a>
+            <input type="text" class="search-box" placeholder="Pesquise por cidade">
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="#" class="nav-item active">Todos</a>
+            <a href="#" class="nav-item">São Paulo</a>
+            <a href="#" class="nav-item">Rio de Janeiro</a>
+            <a href="#" class="nav-item">Salvador</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h1>Todos os hostels</h1>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h2 class="section-title">Todos os hostels disponíveis para reserva</h2>
+        
+        <div class="hostels-grid">
+            <!-- Hostel 1 -->
+            <div class="hostel-card">
+                <div class="hostel-image hostel1"></div>
+                <div class="hostel-info">
+                    <h3 class="hostel-name">Urban Hostel SP</h3>
+                    <p class="hostel-location">Centro, São Paulo</p>
+                    <p class="hostel-price">R$ 45/noite</p>
+                    <div class="hostel-features">
+                        <span class="feature-tag">WiFi</span>
+                        <span class="feature-tag">Cozinha</span>
+                        <span class="feature-tag">Ar-condicionado</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hostel 2 -->
+            <div class="hostel-card">
+                <div class="hostel-image hostel2"></div>
+                <div class="hostel-info">
+                    <h3 class="hostel-name">Beach Hostel Rio</h3>
+                    <p class="hostel-location">Copacabana, Rio de Janeiro</p>
+                    <p class="hostel-price">R$ 55/noite</p>
+                    <div class="hostel-features">
+                        <span class="feature-tag">Vista para o mar</span>
+                        <span class="feature-tag">Café da manhã</span>
+                        <span class="feature-tag">WiFi</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hostel 3 -->
+            <div class="hostel-card">
+                <div class="hostel-image hostel3"></div>
+                <div class="hostel-info">
+                    <h3 class="hostel-name">Historic Hostel Salvador</h3>
+                    <p class="hostel-location">Pelourinho, Salvador</p>
+                    <p class="hostel-price">R$ 35/noite</p>
+                    <div class="hostel-features">
+                        <span class="feature-tag">Centro histórico</span>
+                        <span class="feature-tag">Terraço</span>
+                        <span class="feature-tag">WiFi</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hostel 4 -->
+            <div class="hostel-card">
+                <div class="hostel-image hostel4"></div>
+                <div class="hostel-info">
+                    <h3 class="hostel-name">Green Hostel SP</h3>
+                    <p class="hostel-location">Vila Madalena, São Paulo</p>
+                    <p class="hostel-price">R$ 50/noite</p>
+                    <div class="hostel-features">
+                        <span class="feature-tag">Eco-friendly</span>
+                        <span class="feature-tag">Jardim</span>
+                        <span class="feature-tag">Bicicletas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hostel 5 -->
+            <div class="hostel-card">
+                <div class="hostel-image hostel5"></div>
+                <div class="hostel-info">
+                    <h3 class="hostel-name">Tropical Hostel Rio</h3>
+                    <p class="hostel-location">Ipanema, Rio de Janeiro</p>
+                    <p class="hostel-price">R$ 60/noite</p>
+                    <div class="hostel-features">
+                        <span class="feature-tag">Piscina</span>
+                        <span class="feature-tag">Bar</span>
+                        <span class="feature-tag">Próximo à praia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -27,10 +27,10 @@ export const rj = (req: Request, res: Response) => {
   })
 }
 
-export const sal = (req: Request, res: Response) => {
+export const ba = (req: Request, res: Response) => {
   res.render('pages/page', {
     hero: {
-      title: 'Salvador',
+      title: 'Bahia',
       background: '',
     },
   })
